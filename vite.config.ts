@@ -9,8 +9,6 @@ export default defineConfig((): UserConfig => {
             vitePluginTime({ msg: 'my vite demo' })
         ],
         build: {
-            // manifest: true,
-            // sourcemap: true,
             outDir: 'dist',
             ssr: true,
             rollupOptions: {
@@ -18,9 +16,6 @@ export default defineConfig((): UserConfig => {
                     'main': path.resolve(__dirname, 'main.ts'),
                 },
                 output: {
-                    manualChunks: (id: string) => {
-                        return 'my'
-                    },
                     entryFileNames: '[name].js',
                     chunkFileNames: '[name].js',
                     format: 'es'
