@@ -1,19 +1,17 @@
 import { defineConfig } from 'vite'
 import type { UserConfig } from 'vite'
 import path from 'path'
-import vitePluginTime from './plugin/vite-plugin-build-timer'
 
 export default defineConfig((): UserConfig => {
     return {
         plugins: [
-            vitePluginTime({ msg: 'my vite demo' })
+            
         ],
         build: {
             outDir: 'dist',
-            ssr: true,
             rollupOptions: {
                 input: {
-                    'main': path.resolve(__dirname, 'main.ts'),
+                    'main': path.resolve(__dirname, 'index.html'),
                 },
                 output: {
                     entryFileNames: '[name].js',
