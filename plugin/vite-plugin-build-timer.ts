@@ -9,7 +9,7 @@ export default function timePlugin(options: PluginOptions = {}): Plugin {
     const msg = options.msg ?? 'vite build'
     let startTime = 0
     return {
-        name: 'vite-plugin-time', // 插件名
+        name: 'vite-plugin-build-timer', // 插件名
         apply: 'build', // 插件应用阶段：构建阶段
         // 开始构建钩子
         buildStart() {

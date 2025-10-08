@@ -1,12 +1,21 @@
 import { defineConfig } from 'vite'
 import type { UserConfig } from 'vite'
 import path from 'path'
+import vue from '@vitejs/plugin-vue'
+import prefetchPlugin from './plugin/vite-plugin-prefetch'
 
 export default defineConfig((): UserConfig => {
     return {
         plugins: [
-            
+            // Vue模板文件编译插件
+            vue(),
+            prefetchPlugin()
         ],
+        server: {
+            headers: {
+                'Cache-Control': 'public, max-age=31536000, immutable',
+            },
+        },
         build: {
             outDir: 'dist',
             rollupOptions: {
@@ -14,12 +23,21 @@ export default defineConfig((): UserConfig => {
                     'main': path.resolve(__dirname, 'index.html'),
                 },
                 output: {
-                    entryFileNames: '[name].js',
-                    chunkFileNames: '[name].js',
-                    format: 'es'
+                    manualChunks: (id: string) => {
+                        if (id.includes('node_modules')) {
+                            if (id.includes('vue')) return 'vue'
+                        }
+                    },
+                    entryFileNames: 'static/js/[name]-[hash].js',
+                    chunkFileNames: 'static/js/[name]-[hash].js',
+                    assetFileNames: 'static/[ext]/[name]-[hash].[ext]'
                 }
             },
-            minify: false
+        },
+        resolve: {
+            alias: {
+                '@': path.resolve(__dirname, 'src')
+            }
         }
     }
 })
