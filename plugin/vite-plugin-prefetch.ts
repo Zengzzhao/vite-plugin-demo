@@ -20,7 +20,7 @@ export default function prefetchPlugin(option: myPluginOptions = {}): Plugin {
                 // 将二级页面模块变为ref=prefetch的link标签插入html的head中
                 .map((chunk: any) => ({
                     tag: 'link',
-                    attrs: { rel: 'prefetch', as: 'script', href: `/${chunk.fileName}` },
+                    attrs: { rel: 'prefetch', as: 'script', href: `/${chunk.fileName}`, crossorigin: true },
                     injectTo: 'head' as const
                 }))
             return { html, tags };
